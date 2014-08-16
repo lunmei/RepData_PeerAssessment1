@@ -112,3 +112,5 @@ xyplot(steps ~ Interval | day, data = stepsPatternDay, layout = c(1:2),
 ```
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
+
+The weekend has more activity than weekday in general. 

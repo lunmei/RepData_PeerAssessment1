@@ -67,3 +67,5 @@ library(lattice)
 xyplot(steps ~ Interval | day, data = stepsPatternDay, layout = c(1:2), 
        ylab = "Number of Steps", xlab = "Interval", type ="l")
 ```
+
+The weekend has more activity than weekday in general. 
