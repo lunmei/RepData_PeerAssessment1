@@ -47,6 +47,15 @@ plot(timeInterval, stepsPattern, type ="l",
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
 
+```r
+intervalMaxActivity <-timeInterval[stepsPattern == max(stepsPattern)]
+intervalMaxActivity
+```
+
+```
+## [1] 835
+```
+The maximum number of steps is in 835 to  840 minute interval. 
 
 ## Imputing missing values
 

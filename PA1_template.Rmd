@@ -26,8 +26,11 @@ stepsPattern <- tapply(activityData[,1], activityData[,3], mean, na.rm = TRUE)
 timeInterval <- activityData[1:length(stepsPattern),3]
 plot(timeInterval, stepsPattern, type ="l", 
      xlab ="time interval", ylab = "Average Number of Steps")
-```
 
+intervalMaxActivity <-timeInterval[stepsPattern == max(stepsPattern)]
+intervalMaxActivity
+```
+The maximum number of steps is in `r intervalMaxActivity` to  `r intervalMaxActivity+5` minute interval. 
 
 ## Imputing missing values
 ```{r, echo = TRUE}
