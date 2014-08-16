@@ -2,53 +2,96 @@
 
 
 ## Loading and preprocessing the data
-```{r, echo = TRUE}
+
+```r
 activityData <- read.csv("activity.csv")
 ```
 
 
 ## What is mean and median total number of steps taken per day?
-```{r, echo = TRUE}
+
+```r
 stepsPerDay <- tapply(activityData[,1], activityData[,2], sum)
 meanStepsPerDay<- mean( stepsPerDay, na.rm = TRUE)
 meanStepsPerDay
+```
+
+```
+## [1] 10766
+```
+
+```r
 medianStepsPerDay<- median( stepsPerDay, na.rm = TRUE)
 medianStepsPerDay
 ```
 
-```{r, echo = TRUE}
+```
+## [1] 10765
+```
+
+
+```r
 hist(stepsPerDay, breaks = 200)
 ```
 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
+
 ## What is the average daily activity pattern?
-```{r, echo = TRUE}
+
+```r
 stepsPattern <- tapply(activityData[,1], activityData[,3], mean, na.rm = TRUE)
 timeInterval <- activityData[1:length(stepsPattern),3]
 plot(timeInterval, stepsPattern, type ="l", 
      xlab ="time interval", ylab = "Average Number of Steps")
 ```
 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+
 
 ## Imputing missing values
-```{r, echo = TRUE}
+
+```r
 NumMissingValue <- sum(is.na(activityData[,1]))
 print(c("Number of Missing Value: ", NumMissingValue))
+```
+
+```
+## [1] "Number of Missing Value: " "2304"
+```
+
+```r
 activityDataFilledMissing <- activityData
 activityDataFilledMissing[is.na(activityData[,1]), 1] <- rep(stepsPattern, NumMissingValue/length(stepsPattern))
 
 stepsPerDay2 <- tapply(activityDataFilledMissing[,1], activityData[,2], sum)
 meanStepsPerDay2<- mean( stepsPerDay2)
 meanStepsPerDay2
-medianStepsPerDay2<- median( stepsPerDay2)
-medianStepsPerDay2
-hist(stepsPerDay2, breaks = 200)
+```
 
 ```
+## [1] 10766
+```
+
+```r
+medianStepsPerDay2<- median( stepsPerDay2)
+medianStepsPerDay2
+```
+
+```
+## [1] 10766
+```
+
+```r
+hist(stepsPerDay2, breaks = 200)
+```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
 I replace the missing value by the average/mean steps for that 5 minute interval. The mean value does not change, the median value changes. After imputing missing data, the estimates of the toal daily number of steps deos not change too much. 
 
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r, echo = TRUE}
+
+```r
 activityDataFilledMissing[,2] <- as.Date(activityDataFilledMissing[,2])
 weekdaysData <- weekdays(activityDataFilledMissing[,2]) 
 weekdaysData[weekdaysData == "Sunday" | weekdaysData =="Saturday"] <- "weekend"
@@ -67,3 +110,5 @@ library(lattice)
 xyplot(steps ~ Interval | day, data = stepsPatternDay, layout = c(1:2), 
        ylab = "Number of Steps", xlab = "Interval", type ="l")
 ```
+
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
